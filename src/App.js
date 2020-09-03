@@ -17,13 +17,14 @@ export default function App() {
   
 
   useEffect(() => {
-    const fetchShow = () => {
+   
      fetchShow
-        .then(res => {
+      .then(res => {
+          console.log("Then res", res);
           setShow(res.data);
           setSeasons(formatSeasons(res.data._embedded.episodes));
         });
-    };
+    
     // fetchShow();
   }, []);
 
