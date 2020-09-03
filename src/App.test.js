@@ -9,11 +9,23 @@ test("App fetches show data from api and renders it", async() => {
     //Arrange
 
     mockFetchShow.mockResolvedValueOnce(shows); 
-    const {findByText, getByRole, getAllByTestId} = render(<App/>);
+    const {findByText, getByRole, getAllByTestId, getByLabelText} = render(<App/>);
 
+    //Wait for API to load
+    await getByRole('heading', {name: /fetching data.../i});
 
+    //Checking show title did actually appear
+    await waitFor(() => {
+        // expect(getByRole('heading', {name: /Stranger Things/i}).toEqual(expect.anything()))
+         expect(getByRole('heading', {name: /Stranger Things/i}))
+    }
 
+    )
 
+    //Also its giving me a warning for having two awaits, is this bad? Or a warning for not wrapping in Act
+
+    //I can't figure out how to select dropdown and click it, to make episodes appear
+  
 })
 
 const shows = {

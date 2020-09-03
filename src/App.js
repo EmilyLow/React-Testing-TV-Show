@@ -21,7 +21,7 @@ export default function App() {
    
      fetchShow()
       .then(res => {
-          console.log("Then res", res);
+          // console.log("Then res", res);
           setShow(res.data);
           setSeasons(formatSeasons(res.data._embedded.episodes));
         });
@@ -43,6 +43,8 @@ export default function App() {
       <h1>{show.name}</h1>
       {parse(show.summary)}
       <Dropdown
+      // Role might not work
+        // role = "dropdown"
         options={Object.keys(seasons)}
         onChange={handleSelect}
         value={selectedSeason || "Select a season"}
