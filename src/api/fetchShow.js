@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //This has been altered to break
-function fetchShow() {
+export const fetchShow = () => {
     return axios
       .get(
         "https://api.tvmaze.com/singlesearch/shows?q=stranger-things&embed=episodes"
