@@ -1,6 +1,6 @@
 import React from "react";
 import App from "./App";
-
+import userEvent from '@testing-library/user-event';
 import {render, fireEvent, waitFor} from "@testing-library/react";
 import {fetchShow as mockFetchShow} from './api/fetchShow';
 jest.mock("./api/fetchShow");
@@ -16,17 +16,37 @@ test("App fetches show data from api and renders it", async() => {
 
     //Checking show title did actually appear
     await waitFor(() => {
-        // expect(getByRole('heading', {name: /Stranger Things/i}).toEqual(expect.anything()))
+
          expect(getByRole('heading', {name: /Stranger Things/i}))
     }
 
+
+
     )
+    })
 
-    //Also its giving me a warning for having two awaits, is this bad? Or a warning for not wrapping in Act
+    test("App renders seasons", async() => {
+        mockFetchShow.mockResolvedValueOnce(shows); 
+        const {getByText, getByRole} = render(<App/>);
+       
 
-    //I can't figure out how to select dropdown and click it, to make episodes appear
+        await waitFor(() => {
+            getByText(/select a season/i);
+        })
+        const dropDown = getByText(/select a season/i);
+        userEvent.click(dropDown);
   
-})
+        const season = getByText(/season 1/i);
+        expect(season).toBeInTheDocument();
+        userEvent.click(season);
+     
+        const episode = getByText(/season 1, episode 1/i);
+        expect(episode).toBeInTheDocument();
+        
+    })
+
+   
+
 
 const shows = {
     data: {
@@ -628,4 +648,4 @@ const shows = {
         }
         }
         
-};
+}
